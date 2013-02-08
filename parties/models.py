@@ -108,9 +108,15 @@ class Guest(models.Model):
             self.last_name,
         )
 
+class Item(models.Model):
+    invitation = models.ForeignKey('Invitation', related_name='invited_items')
+    ingredient = models.ForeignKey('Ingredient')
+
 class Invitation(models.Model):
     guestlist = models.ForeignKey('Guestlist', related_name='invited_guests')
     guest = models.ForeignKey('Guest')
+    item = models.ManyToManyField('Ingredient', related_name='brought_item', blank=True,
+            through=Item)
 
 class Guestlist(models.Model):
     name = models.CharField(max_length=48, unique=True)    
@@ -122,6 +128,7 @@ class Guestlist(models.Model):
     
     class Meta:
         ordering = ('name',)
+
 
 class Party(models.Model):
     name = models.CharField(max_length=48, unique=True)
