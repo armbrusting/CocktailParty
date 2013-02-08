@@ -1,5 +1,11 @@
 # Django settings for Cocktail_Party project.
 
+import os.path
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+settings_path = os.path.abspath(os.path.dirname(__file__))
+head, tail = os.path.split(settings_path)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -12,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', #'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/ryanarmbrust/Sites/Cocktail_Party/cocktialparty.sql',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(PROJECT_PATH, 'cocktialparty.sql'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.

@@ -10,7 +10,7 @@ class CocktailAdmin(admin.ModelAdmin):
     inlines = (CocktailIngredientInline,)
 
 class PartyCocktailInline(admin.TabularInline):
-    model = PartyCocktail
+    model = Cocktaillist
     extra = 1
 
 class PartyAdmin(admin.ModelAdmin):
