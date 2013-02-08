@@ -1,0 +1,10 @@
+{% load url from future %}
+{% if latest_party_list %}
+  <ul>
+  {% for party in latest_party_list %}
+  <li><a href="{% url 'parties:detail' party.id %}/">{{ party.name }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No parties are available.</p>
+{% endif %}
