@@ -73,9 +73,15 @@ class Cocktail(models.Model):
     class Meta:
         ordering = ('name',)
 
+class BroughtItem(models.Model):
+    listing = models.ForeignKey('ListedCocktail')
+    ingredient = models.ForeignKey('Ingredient')
+
 class ListedCocktail(models.Model):
     cocktaillist = models.ForeignKey('Cocktaillist', related_name='listed_cocktail')
     cocktail = models.ForeignKey('Cocktail')
+    item = models.ManyToManyField('Ingredient', related_name='panty_item', blank=True,
+            through=PantryItem)
 
 class Cocktaillist(models.Model):
     name = models.CharField(max_length=48, unique=True)    
@@ -108,15 +114,15 @@ class Guest(models.Model):
             self.last_name,
         )
 
-class Item(models.Model):
-    invitation = models.ForeignKey('Invitation', related_name='invited_items')
+class BroughtItem(models.Model):
+    invitation = models.ForeignKey('Invitation')
     ingredient = models.ForeignKey('Ingredient')
 
 class Invitation(models.Model):
     guestlist = models.ForeignKey('Guestlist', related_name='invited_guests')
     guest = models.ForeignKey('Guest')
     item = models.ManyToManyField('Ingredient', related_name='brought_item', blank=True,
-            through=Item)
+            through=BroughItem)
 
 class Guestlist(models.Model):
     name = models.CharField(max_length=48, unique=True)    
