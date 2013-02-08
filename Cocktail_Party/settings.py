@@ -3,6 +3,9 @@
 import os.path
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR, PROJECT_MODULE_NAME = os.path.split(
+    os.path.dirname(os.path.realpath(__file__))
+)
 settings_path = os.path.abspath(os.path.dirname(__file__))
 head, tail = os.path.split(settings_path)
 
@@ -109,9 +112,8 @@ ROOT_URLCONF = 'Cocktail_Party.urls'
 WSGI_APPLICATION = 'Cocktail_Party.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, 'templates'),
+
 )
 
 INSTALLED_APPS = (
@@ -125,6 +127,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'parties',
+    'south',
+    'django_extensions',
 )
 
 # A sample logging configuration. The only tangible logging

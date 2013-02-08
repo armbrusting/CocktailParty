@@ -73,14 +73,14 @@ class Cocktail(models.Model):
     class Meta:
         ordering = ('name',)
 
-class BroughtItem(models.Model):
+class PantryItem(models.Model):
     listing = models.ForeignKey('ListedCocktail')
     ingredient = models.ForeignKey('Ingredient')
 
 class ListedCocktail(models.Model):
     cocktaillist = models.ForeignKey('Cocktaillist', related_name='listed_cocktail')
     cocktail = models.ForeignKey('Cocktail')
-    item = models.ManyToManyField('Ingredient', related_name='panty_item', blank=True,
+    item = models.ManyToManyField('Ingredient', related_name='panty_item',
             through=PantryItem)
 
 class Cocktaillist(models.Model):
@@ -122,7 +122,7 @@ class Invitation(models.Model):
     guestlist = models.ForeignKey('Guestlist', related_name='invited_guests')
     guest = models.ForeignKey('Guest')
     item = models.ManyToManyField('Ingredient', related_name='brought_item', blank=True,
-            through=BroughItem)
+            through=BroughtItem)
 
 class Guestlist(models.Model):
     name = models.CharField(max_length=48, unique=True)    
@@ -135,11 +135,10 @@ class Guestlist(models.Model):
     class Meta:
         ordering = ('name',)
 
-
 class Party(models.Model):
     name = models.CharField(max_length=48, unique=True)
-    cocktaillist = models.ManyToManyField('Cocktaillist', blank=True,)
-    guestlist = models.ForeignKey('Guestlist', blank=True,)
+    cocktaillist = models.ForeignKey('Cocktaillist', null=True)
+    guestlist = models.ForeignKey('Guestlist', null=True)
 
     def __unicode__(self):
         return self.name
